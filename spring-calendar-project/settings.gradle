@@ -1,0 +1,5 @@
+rootProject.name = 'spring-calendar-project'
+include 'calendar-core'
+include 'calendar-batch'
+include 'calendar-api'
+
