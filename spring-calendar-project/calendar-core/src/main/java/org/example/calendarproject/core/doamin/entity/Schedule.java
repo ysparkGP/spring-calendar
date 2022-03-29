@@ -16,11 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(access = AccessLevel.PRIVATE)
-public class Schedule {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Schedule extends BaseEntity{
 
     private LocalDateTime startAt;
 
@@ -36,9 +32,6 @@ public class Schedule {
 
     @Enumerated(EnumType.STRING)
     private ScheduleType scheduleType;
-
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
 
     public static Schedule event(String title, String description, LocalDateTime startAt, LocalDateTime endAt, User writer){
         return Schedule.builder()
