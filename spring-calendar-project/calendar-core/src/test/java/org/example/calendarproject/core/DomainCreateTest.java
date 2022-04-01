@@ -1,9 +1,6 @@
 package org.example.calendarproject.core;
 
 import org.example.calendarproject.core.doamin.ScheduleType;
-import org.example.calendarproject.core.doamin.entity.Engagement;
-import org.example.calendarproject.core.doamin.Event;
-import org.example.calendarproject.core.doamin.RequestStatus;
 import org.example.calendarproject.core.doamin.entity.Schedule;
 import org.example.calendarproject.core.doamin.entity.User;
 import org.junit.jupiter.api.Test;
