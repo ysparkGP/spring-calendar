@@ -1,17 +1,20 @@
 package org.example.calendarproject.api.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SignUpReq {
 
-    private final String name;
+    private String name;
 
-    private final String email;
+    private String email;
 
-    private final String password;
+    private String password;
 
-    private final LocalDate birthday;
+    private LocalDate birthday;
 }

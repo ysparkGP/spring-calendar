@@ -1,11 +1,14 @@
 package org.example.calendarproject.api.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LoginReq {
 
-    private final String email;
+    private String email;
 
-    private final String password;
+    private String password;
 }
