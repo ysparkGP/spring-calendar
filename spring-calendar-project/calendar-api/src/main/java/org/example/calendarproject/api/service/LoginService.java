@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.calendarproject.api.dto.LoginReq;
 import org.example.calendarproject.api.dto.SignUpReq;
 import org.example.calendarproject.core.doamin.entity.User;
-import org.example.calendarproject.core.doamin.entity.repository.UserRepository;
 import org.example.calendarproject.core.dto.UserCreateReq;
 import org.example.calendarproject.core.service.UserService;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LoginService {
 
-    private final static String LOGIN_SESSION_KEY = "USER_ID";
+    public final static String LOGIN_SESSION_KEY = "USER_ID";
     private final UserService userService;
 
     @Transactional
