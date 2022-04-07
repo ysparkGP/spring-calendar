@@ -63,6 +63,15 @@ public class Schedule extends BaseEntity{
                 .build();
     }
 
+    public static Schedule notification(String title, LocalDateTime notifyAt, User writer) {
+        return Schedule.builder()
+                .startAt(notifyAt)
+                .title(title)
+                .writer(writer)
+                .scheduleType(ScheduleType.NOTIFICATION)
+                .build();
+    }
+
     public Task toTask(){
         return new Task(this);
     }
