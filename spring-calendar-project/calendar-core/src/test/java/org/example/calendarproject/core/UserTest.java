@@ -25,6 +25,6 @@ public class UserTest {
     @Test
     void isMatchTest(){
         final User me = new User("me", "email", "pw", LocalDate.now());
-        assertEquals(true,me.isMatch(alwaysMatchEncryptor, "aa"));
+        assertEquals(true,me.isMatched(alwaysMatchEncryptor, "aa"));
     }
 }
