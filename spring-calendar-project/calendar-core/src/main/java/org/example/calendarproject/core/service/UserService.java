@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.calendarproject.core.doamin.entity.User;
 import org.example.calendarproject.core.doamin.entity.repository.UserRepository;
 import org.example.calendarproject.core.dto.UserCreateReq;
+import org.example.calendarproject.core.exception.CalendarException;
+import org.example.calendarproject.core.exception.ErrorCode;
 import org.example.calendarproject.core.util.Encryptor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +23,7 @@ public class UserService {
     public User create(UserCreateReq req) {
         userRepository.findByEmail(req.getEmail())
                 .ifPresent(u -> {
-                    throw new RuntimeException("cannot find user");
+                    throw new CalendarException(ErrorCode.USER_NOT_FOUND);
                 });
         return userRepository.save(User.builder()
                 .name(req.getName())
@@ -40,6 +42,6 @@ public class UserService {
     @Transactional
     public User findByUserId(Long userId){
         return userRepository.findById(userId)
-                .orElseThrow(()-> new RuntimeException("no user by id"));
+                .orElseThrow(()-> new CalendarException(ErrorCode.USER_NOT_FOUND));
     }
 }
