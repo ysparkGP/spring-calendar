@@ -9,6 +9,8 @@ import org.example.calendarproject.core.doamin.entity.Schedule;
 import org.example.calendarproject.core.doamin.entity.User;
 import org.example.calendarproject.core.doamin.entity.repository.EngagementRepository;
 import org.example.calendarproject.core.doamin.entity.repository.ScheduleRepository;
+import org.example.calendarproject.core.exception.CalendarException;
+import org.example.calendarproject.core.exception.ErrorCode;
 import org.example.calendarproject.core.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +36,7 @@ public class EventService {
                 && e.getRequestStatus() == RequestStatus.ACCEPTED
                 && e.getEvent().isOverlapped(eventCreateReq.getStartAt(), eventCreateReq.getEndAt())
         )){
-            throw new RuntimeException("can not make engagement. period overlapped");
+            throw new CalendarException(ErrorCode.EVENT_CREATE_OVERLAPPED_PERIOD);
         }
         final Schedule eventSchedule = Schedule.event(
                 eventCreateReq.getTitle(),
