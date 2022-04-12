@@ -5,6 +5,8 @@ import org.example.calendarproject.api.dto.LoginReq;
 import org.example.calendarproject.api.dto.SignUpReq;
 import org.example.calendarproject.core.doamin.entity.User;
 import org.example.calendarproject.core.dto.UserCreateReq;
+import org.example.calendarproject.core.exception.CalendarException;
+import org.example.calendarproject.core.exception.ErrorCode;
 import org.example.calendarproject.core.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +52,7 @@ public class LoginService {
             session.setAttribute(LOGIN_SESSION_KEY, user.get().getId());
         }
         else{
-            throw new RuntimeException("password or email not match");
+            throw new CalendarException(ErrorCode.PASSWORD_NOT_MATCH);
         }
     }
 
