@@ -1,7 +1,7 @@
 package org.example.calendarproject.api.service;
 
-import org.example.calendarproject.core.doamin.entity.Engagement;
+import org.example.calendarproject.api.dto.EngagementEmailStuff;
 
 public interface EmailService {
-    void sendEngagement(Engagement engagement);
+    void sendEngagement(EngagementEmailStuff stuff);
 }
