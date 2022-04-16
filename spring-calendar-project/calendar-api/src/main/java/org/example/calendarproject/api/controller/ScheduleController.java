@@ -2,22 +2,16 @@ package org.example.calendarproject.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.calendarproject.api.dto.*;
-import org.example.calendarproject.api.service.EventService;
-import org.example.calendarproject.api.service.NotificationService;
-import org.example.calendarproject.api.service.ScheduleQueryService;
-import org.example.calendarproject.api.service.TaskService;
+import org.example.calendarproject.api.service.*;
+import org.example.calendarproject.core.doamin.RequestStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
-
-import static org.example.calendarproject.api.service.LoginService.LOGIN_SESSION_KEY;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/schedules")
@@ -27,6 +21,7 @@ public class ScheduleController {
     private final ScheduleQueryService scheduleQueryService;
     private final TaskService taskService;
     private final EventService eventService;
+    private final EngagementService engagementService;
     private final NotificationService notificationService;
 
     @PostMapping("/tasks")
@@ -85,5 +80,14 @@ public class ScheduleController {
             @DateTimeFormat(pattern = "yyyy-MM") String yearMonth) // 2022-04
     {
         return scheduleQueryService.getScheduleByMonth(authUser, yearMonth == null? YearMonth.now(): YearMonth.parse(yearMonth));
+    }
+
+    @PutMapping("/events/engagements/{engagementId}")
+    public RequestStatus updateEngagement(
+            @Valid @RequestBody ReplyEngagementReq replyEngagementReq,
+            @PathVariable Long engagementId,
+            AuthUser authUser
+    ){
+        return engagementService.update(authUser, engagementId, replyEngagementReq.getType());
     }
 }
