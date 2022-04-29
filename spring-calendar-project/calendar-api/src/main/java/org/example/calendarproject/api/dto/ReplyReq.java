@@ -2,12 +2,12 @@ package org.example.calendarproject.api.dto;
 
 import org.example.calendarproject.core.doamin.RequestReplyType;
 
-public class ReplyEngagementReq {
+public class ReplyReq {
     private RequestReplyType type;
 
-    public ReplyEngagementReq(){}
+    public ReplyReq(){}
 
-    public ReplyEngagementReq(RequestReplyType type) {
+    public ReplyReq(RequestReplyType type) {
         this.type = type;
     }
 
