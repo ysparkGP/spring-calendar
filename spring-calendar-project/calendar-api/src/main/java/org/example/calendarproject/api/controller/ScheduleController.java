@@ -23,6 +23,7 @@ public class ScheduleController {
     private final EventService eventService;
     private final EngagementService engagementService;
     private final NotificationService notificationService;
+    private final ShareService shareService;
 
     @PostMapping("/tasks")
     public ResponseEntity<Void> createTask(
@@ -84,10 +85,27 @@ public class ScheduleController {
 
     @PutMapping("/events/engagements/{engagementId}")
     public RequestStatus updateEngagement(
-            @Valid @RequestBody ReplyEngagementReq replyEngagementReq,
+            @Valid @RequestBody ReplyReq replyReq,
             @PathVariable Long engagementId,
             AuthUser authUser
     ){
-        return engagementService.update(authUser, engagementId, replyEngagementReq.getType());
+        return engagementService.update(authUser, engagementId, replyReq.getType());
+    }
+
+    @PostMapping("/shares")
+    public void shareSchedule(
+            AuthUser authUser,
+            @Valid @RequestBody CreateShareReq req
+    ){
+        shareService.createShare(authUser, req);
+    }
+
+    @PutMapping("/shares/{shareId}")
+    public void replyToShareRequest(
+            @PathVariable Long shareId,
+            @Valid @RequestBody ReplyReq replyReq,
+            AuthUser authUser
+    ){
+        shareService.replyToShareRequest(shareId,authUser, replyReq.getType());
     }
 }
