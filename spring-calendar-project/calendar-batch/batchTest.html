@@ -1,0 +1,14 @@
+-- schedules 쿼리
+select s.id, s.start_at, s.title, u.email as user_mail from schedules s inner join users u on s.writer_id=u.id where s.start_at >= now() + interval 10 minute and s.start_at < now() + interval 11 minute;
+
+-- engagements 쿼리
+select s.id, s.start_at, s.title, u.email as user_mail from engagements e inner join schedules s on e.event_id=s.id inner join users u on s.writer_id=u.id  where s.start_at >= now() + interval 10 minute and s.start_at < now() + interval 11 minute and e.request_status = 'ACCEPTED';
+
+-- 배치 데이터 준비 schedules
+INSERT INTO calendar_db.schedules(schedule_type, start_at, title, writer_id, created_at, updated_at) VALUES('NOTIFICATION', NOW() + interval 10 MINUTE , concat('아침 수영10-', uuid()), 3, NOW(), NOW());
+INSERT INTO calendar_db.schedules(schedule_type, start_at, title, writer_id, created_at, updated_at) VALUES('NOTIFICATION', NOW() + interval 11 MINUTE , concat('아침 수영11-', uuid()), 3, NOW(), NOW());
+INSERT INTO calendar_db.schedules(schedule_type, start_at, title, writer_id, created_at, updated_at) VALUES('NOTIFICATION', NOW() + interval 12 MINUTE , concat('아침 수영12-', uuid()), 3, NOW(), NOW());
+
+-- 배치 데이터 준비 engagements
+INSERT INTO calendar_db.schedules(schedule_type, start_at, end_at, title, writer_id, created_at, updated_at) VALUES('EVENT', NOW() + interval 11 MINUTE, NOW() + interval 30 MINUTE, concat('회의', uuid()),1,NOW(), NOW());
+INSERT INTO calendar_db.engagements(request_status, attendee_id, event_id, created_at, updated_at) VALUES('ACCEPTED', 3, (select id from schedules order by id desc limit 1), NOW(), NOW());
