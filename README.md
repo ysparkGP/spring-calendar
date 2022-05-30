@@ -96,4 +96,4 @@
 ##### 공유요청을 담당하는 api가 호출되면 ShareService의 findSharedUserIdsByUser 메서드가 호출되고 인자로 넘어온 AuthUser로 양방향 공유 관계와 단방향 공유 관계의 User들을 모두 찾아 리턴
 #### 5. 알림 배치 시스템
 ![batch](https://user-images.githubusercontent.com/64354998/170948483-e305b687-227a-4df8-9df1-66d752204b03.PNG)
-##### Engagement와 Schedule 배치 시스템을 위하여 JdbcCursorItemReader 클래스를 구현하여 직접 sql문을 작성
+##### Engagement와 Schedule 배치 시스템을 위하여 JdbcCursorItemReader 클래스를 구현하여 User 엔티티와 조인하는 sql문을 작성
