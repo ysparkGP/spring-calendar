@@ -80,20 +80,53 @@
 ## 6. 주요 기능
 #### 1. 세션으로 유저 인증
 ![AuthUserResolver](https://user-images.githubusercontent.com/64354998/170941796-774fdc24-217b-46be-9939-e1958981d85b.PNG)
+###
 ![Webconfig](https://user-images.githubusercontent.com/64354998/170941911-02bab4ef-80f6-4d3e-9e98-c0b0dce7a553.PNG)
 ##### 인증(세션이 있는)된 유저임을 인증하기 위하여 HandlerMethodArgumentResolver를 상속후 세션 값을 확인하여 AuthUser 리턴
 #### 2. 약속 매칭 이메일 전송 기능
 ![emailservice](https://user-images.githubusercontent.com/64354998/170943723-e34468a4-4e87-498f-b0b2-e3b4d080aeb7.PNG)
+###
 ![emailstuff](https://user-images.githubusercontent.com/64354998/170943808-d339f3f0-27a4-4aed-99a8-a31c1da1d9e0.PNG)
 ##### MimeMessagePreparator, MimeMessageHelper, JavaMailSender를 이용하여  약속 매칭을 위한 이메일 전송, 상대방이 수락을 누른다면 생성된 Engagement 엔티티의 상태를 담당하는 Enum타입인 RequestStatus는 ACCEPTED로 변경되고 거절을 누른다면 REJECTED로, 메일을 보지않는다면 REQUESTED로 유지가 되어 DB에 영속화
 #### 3. 캘린더 공유 요청 기능
 ![sharecontroller](https://user-images.githubusercontent.com/64354998/170946151-952cb6a1-4394-4a13-a8fa-3d1fd919d192.PNG)
+###
 ![shareservice](https://user-images.githubusercontent.com/64354998/170946503-c13c900b-3a30-4fe3-bb46-99e72f3e9025.PNG)
 ##### 공유응답을 담당하는 api가 호출되면 ShareService의 replyToShareRequest 메서드가 호출되고 인자로 넘어온 replyReq의 type을 보고 db에 영속화된 Share 엔티티의 상태를 Engagement와 똑같은 방식으로 수락, 거절, 보류 관리
 #### 4. 캘린더 공유 조회 기능
 ![sharecontroller2](https://user-images.githubusercontent.com/64354998/170947220-4566da8a-1bf4-4130-b2ac-b7428c27334f.PNG)
+###
 ![shareservice2](https://user-images.githubusercontent.com/64354998/170947241-9e582ab3-d8d9-4516-930b-0ecea1445a5c.PNG)
 ##### 공유요청을 담당하는 api가 호출되면 ShareService의 findSharedUserIdsByUser 메서드가 호출되고 인자로 넘어온 AuthUser로 양방향 공유 관계와 단방향 공유 관계의 User들을 모두 찾아 리턴
 #### 5. 알림 배치 시스템
 ![batch](https://user-images.githubusercontent.com/64354998/170948483-e305b687-227a-4df8-9df1-66d752204b03.PNG)
 ##### Engagement와 Schedule 배치 시스템을 위하여 JdbcCursorItemReader 클래스를 구현하여 User 엔티티와 조인하는 sql문을 작성
+
+---
+## 7. Postman과 호스트 서버를 이용한 결과물
+* ### 회원가입
+![signup](https://user-images.githubusercontent.com/64354998/170968967-84843a3e-bcf2-45f4-9abd-9002c41291d7.gif)
+###
+![select users;](https://user-images.githubusercontent.com/64354998/170969182-8556e731-7fcf-4d21-b92a-cdcf7dcb4a5e.PNG)
+* ### schedule 생성
+![create task](https://user-images.githubusercontent.com/64354998/170969332-e10965d2-8243-418c-a7c6-9f63500ebc0c.PNG)
+###
+![create event](https://user-images.githubusercontent.com/64354998/170969473-5c643b2b-1be8-497e-bc1d-b3b33afba43d.PNG)
+##### 자신과 상대방의 약속 매칭 API 호출
+![create event3](https://user-images.githubusercontent.com/64354998/170969880-2816a443-7d43-4847-aef9-4bcb095347cb.PNG)
+##### 상대방에게 메시지 전달
+![이벤트 수락](https://user-images.githubusercontent.com/64354998/170970185-017d8628-86ac-4d22-80d3-619840406f4b.PNG)
+##### 이벤트 수락 후 engagement 엔티티 상태는 Requested -> Accepted
+![이벤트 수락](https://user-images.githubusercontent.com/64354998/170970525-0f311757-0601-46af-8b79-476c22445bcd.PNG)
+###
+![이벤트 수락2](https://user-images.githubusercontent.com/64354998/170970666-6510d5ed-b486-43c4-aaaa-a36acf334c0b.PNG)
+* ### 공유 관계 성립
+##### 상대방에게 공유 관계 요청
+![create share](https://user-images.githubusercontent.com/64354998/170974418-5806eefd-731e-450f-824f-73b0f71789de.PNG)
+##### request_status 가 Requested인 Share 엔티티 생성
+![select shares4](https://user-images.githubusercontent.com/64354998/170974800-c8d463f9-b4ac-4ec3-8d6b-b3b06b736a07.PNG)
+###
+![select shares2](https://user-images.githubusercontent.com/64354998/170974873-32938943-c25c-49a7-be9c-18dd3e34f9e4.PNG)
+##### 상대방이 request_status를 수락
+![select shares3](https://user-images.githubusercontent.com/64354998/170975009-a0ef1922-a6cb-4965-95ad-b0976d31fe75.PNG)
+##### 그 결과 서로의 캘린더 공유
