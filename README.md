@@ -7,7 +7,7 @@
 ### 3. 기술 스택
 ### 4. 패키징 구조
 ### 5. 클래스 다이어그램
-### 6. 시퀀스 다이어그램
+### 6. 주요 기능
 ### 7. Postman과 호스트 서버를 이용한 결과물
 ### 8. 추후 개선사항
 
@@ -63,15 +63,37 @@
 
 ---
 ## 4. 패키징 구조
-* ### API
+* ### API(API와 DTO 관련 클래스들)
 ![api 패키징1](https://user-images.githubusercontent.com/64354998/170936347-302d169e-f55e-4188-99a8-323fa9e3ffbc.PNG)
 ###
 ![api 패키징2](https://user-images.githubusercontent.com/64354998/170937000-76a0cf0c-17ab-438f-a02d-6ad8f5ec89af.PNG)
-* ### Batch
+* ### Batch(배치 관련 클래스들)
 ![batch 패키징1](https://user-images.githubusercontent.com/64354998/170936898-37efc6f2-7250-400c-813d-63cc2e181494.PNG)
-* ### Core
+* ### Core(엔티티와 DTO 관련 클래스들)
 ![core 패키징1](https://user-images.githubusercontent.com/64354998/170937279-7b444901-40c0-42bb-a28f-fdbe5aab478f.PNG)
 
 ---
 ## 5. 클래스 다이어그램
 ![](https://user-images.githubusercontent.com/64354998/170933966-a9c78426-3417-45b7-a71a-b59f905bee37.PNG)
+
+---
+## 6. 주요 기능
+#### 1. 세션으로 유저 인증
+![AuthUserResolver](https://user-images.githubusercontent.com/64354998/170941796-774fdc24-217b-46be-9939-e1958981d85b.PNG)
+![Webconfig](https://user-images.githubusercontent.com/64354998/170941911-02bab4ef-80f6-4d3e-9e98-c0b0dce7a553.PNG)
+##### 인증(세션이 있는)된 유저임을 인증하기 위하여 HandlerMethodArgumentResolver를 상속후 세션 값을 확인하여 AuthUser 리턴
+#### 2. 약속 매칭 이메일 전송 기능
+![emailservice](https://user-images.githubusercontent.com/64354998/170943723-e34468a4-4e87-498f-b0b2-e3b4d080aeb7.PNG)
+![emailstuff](https://user-images.githubusercontent.com/64354998/170943808-d339f3f0-27a4-4aed-99a8-a31c1da1d9e0.PNG)
+##### MimeMessagePreparator, MimeMessageHelper, JavaMailSender를 이용하여  약속 매칭을 위한 이메일 전송, 상대방이 수락을 누른다면 생성된 Engagement 엔티티의 상태를 담당하는 Enum타입인 RequestStatus는 ACCEPTED로 변경되고 거절을 누른다면 REJECTED로, 메일을 보지않는다면 REQUESTED로 유지가 되어 DB에 영속화
+#### 3. 캘린더 공유 요청 기능
+![sharecontroller](https://user-images.githubusercontent.com/64354998/170946151-952cb6a1-4394-4a13-a8fa-3d1fd919d192.PNG)
+![shareservice](https://user-images.githubusercontent.com/64354998/170946503-c13c900b-3a30-4fe3-bb46-99e72f3e9025.PNG)
+##### 공유응답을 담당하는 api가 호출되면 ShareService의 replyToShareRequest 메서드가 호출되고 인자로 넘어온 replyReq의 type을 보고 db에 영속화된 Share 엔티티의 상태를 Engagement와 똑같은 방식으로 수락, 거절, 보류 관리
+#### 4. 캘린더 공유 조회 기능
+![sharecontroller2](https://user-images.githubusercontent.com/64354998/170947220-4566da8a-1bf4-4130-b2ac-b7428c27334f.PNG)
+![shareservice2](https://user-images.githubusercontent.com/64354998/170947241-9e582ab3-d8d9-4516-930b-0ecea1445a5c.PNG)
+##### 공유요청을 담당하는 api가 호출되면 ShareService의 findSharedUserIdsByUser 메서드가 호출되고 인자로 넘어온 AuthUser로 양방향 공유 관계와 단방향 공유 관계의 User들을 모두 찾아 리턴
+#### 5. 알림 배치 시스템
+![batch](https://user-images.githubusercontent.com/64354998/170948483-e305b687-227a-4df8-9df1-66d752204b03.PNG)
+##### Engagement와 Schedule 배치 시스템을 위하여 JdbcCursorItemReader 클래스를 구현하여 직접 sql문을 작성
