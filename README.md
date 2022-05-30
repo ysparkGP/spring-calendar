@@ -5,9 +5,11 @@
 ### 1. 개발 목적
 ### 2. 개발 요구사항
 ### 3. 기술 스택
-### 4. 클래스 다이어그램
-### 5. Postman과 호스트 서버를 이용한 결과물
-### 6. 추후 개선사항
+### 4. 패키징 구조
+### 5. 클래스 다이어그램
+### 6. 시퀀스 다이어그램
+### 7. Postman과 호스트 서버를 이용한 결과물
+### 8. 추후 개선사항
 
 ---
 ## 1. 개발 목적
@@ -60,4 +62,16 @@
   * postman
 
 ---
-## 4. 클래스 다이어그램
+## 4. 패키징 구조
+* ### API
+![api 패키징1](https://user-images.githubusercontent.com/64354998/170936347-302d169e-f55e-4188-99a8-323fa9e3ffbc.PNG)
+###
+![api 패키징2](https://user-images.githubusercontent.com/64354998/170937000-76a0cf0c-17ab-438f-a02d-6ad8f5ec89af.PNG)
+* ### Batch
+![batch 패키징1](https://user-images.githubusercontent.com/64354998/170936898-37efc6f2-7250-400c-813d-63cc2e181494.PNG)
+* ### Core
+![core 패키징1](https://user-images.githubusercontent.com/64354998/170937279-7b444901-40c0-42bb-a28f-fdbe5aab478f.PNG)
+
+---
+## 5. 클래스 다이어그램
+![](https://user-images.githubusercontent.com/64354998/170933966-a9c78426-3417-45b7-a71a-b59f905bee37.PNG)
